@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -30,15 +31,16 @@ public class Product {
 
     private String category;
 
-    @NotBlank(message = "price is required")
+    @NotNull(message = "price is required")
     @DecimalMin(value="0.0",inclusive = false,message = "Price must be greater than 0")
     @Column(nullable = false)
     private BigDecimal price;
 
-    @NotBlank(message = "stock quantity is required")
+    @NotNull(message = "stock quantity is required")
     @Min(value = 0,message = "Stock cannot be <=0 ")
     @Column(name="stock_quantity",nullable = false)
     private Integer stockQuantity;
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "product")
