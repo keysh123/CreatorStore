@@ -37,7 +37,7 @@ public class OrderService  {
                 throw new RuntimeException("Not enough stock");
             }
             BigDecimal priceOfItem=product.getPrice().multiply(BigDecimal.valueOf(itemRequest.getQuantity()));
-            totalPrice.add(priceOfItem);
+            totalPrice = totalPrice.add(priceOfItem);
 
             product.setStockQuantity(product.getStockQuantity()- itemRequest.getQuantity());
             productRepository.save(product);
@@ -54,6 +54,10 @@ public class OrderService  {
         order.setTotalPrice(totalPrice);
 //        orderRepository.save(order);
         return orderRepository.save(order);
+    }
+
+    public List<Order> getAllOrders(){
+        return orderRepository.findAll();
     }
 
 }
